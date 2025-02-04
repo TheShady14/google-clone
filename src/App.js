@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Header from "./components/Header";
+import Navbar from "./components/Navbar";
+import MainContent from "./components/MainContent";
+import Footer from "./components/Footer";
+import CustomizeChrome from "./components/CustomiseChrome";
 
 function App() {
+  const buttons = {
+    search: "Google Search",
+    lucky: "I'm Feeling Lucky",
+  };
+
+  // State for dark mode
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Toggle dark mode
+  const toggleDarkMode = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+    document.body.style.backgroundColor = isDarkMode ? "#fff" : "#333"; // background colours
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <Navbar />
+      <MainContent buttons={buttons} isDarkMode={isDarkMode} />
+      {/* Pass toggleDarkMode to CustomiseChrome */}
+      <CustomizeChrome toggleDarkMode={toggleDarkMode} />
+      <Footer />
     </div>
   );
 }
